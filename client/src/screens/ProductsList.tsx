@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import NoProductFound from '../components/NoProductFound'
 import ProductCard from '../components/ProductCard'
 import { AppContext } from '../context/AppContext'
 import Game from '../contracts/Game'
@@ -8,13 +9,6 @@ const ProductsList: React.FC = (): JSX.Element => {
 
   const games = appContextValue.data.games
 
-  const gamesWithImage = games.map((item: Game) => {
-    return {
-      ...item,
-      image: `${process.env.PUBLIC_URL}/${item.image}`,
-    }
-  })
-
   return (
     <>
       <div
@@ -22,11 +16,10 @@ const ProductsList: React.FC = (): JSX.Element => {
           display: 'flex',
           gap: '25px',
           flexWrap: 'wrap',
-          justifyContent: 'space-between',
         }}
       >
-        {games?.length &&
-          gamesWithImage.map((game: Game) => {
+        {games?.length ? (
+          games.map((game: Game) => {
             return (
               <ProductCard
                 key={game.id}
@@ -37,7 +30,10 @@ const ProductsList: React.FC = (): JSX.Element => {
                 image={game.image}
               />
             )
-          })}
+          })
+        ) : (
+          <NoProductFound />
+        )}
       </div>
     </>
   )

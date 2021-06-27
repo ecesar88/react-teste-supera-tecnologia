@@ -1,16 +1,13 @@
 import React from 'react'
 import ProductCardContainer from './ProductCardContainer'
-import ProductCardProps from '../contracts/ProductCardProps'
+import Game from '../contracts/Game'
 import Button from './Button'
 import { AiOutlineShoppingCart } from 'react-icons/all'
-import placeholderImage from 'public/assets/placeholder.png'
 
-const ProductCard: React.FC<ProductCardProps> = (
-  props: ProductCardProps
-): JSX.Element => {
+const ProductCard: React.FC<Game> = (props: Game): JSX.Element => {
   const { id, name, price, score, image } = props
 
-  const basePath = 'public/assets/photos'
+  const basePath = 'assets/photos'
 
   return (
     <>
@@ -47,7 +44,9 @@ const ProductCard: React.FC<ProductCardProps> = (
           }}
         >
           <img
-            src={`${basePath}/${image}` ?? placeholderImage}
+            src={
+              image?.length ? `${basePath}/${image}` : '/assets/placeholder.png'
+            }
             alt={`gameCover${id}`}
             width="150px"
           />

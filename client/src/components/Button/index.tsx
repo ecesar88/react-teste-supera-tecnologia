@@ -1,9 +1,5 @@
 import styled from 'styled-components'
-
-interface ButtonProps {
-  backgroundColor?: string
-  color?: string
-}
+import ButtonProps from '../../contracts/ButtonProps'
 
 const Button = styled.button`
   display: inline-block;

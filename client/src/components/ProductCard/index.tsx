@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductCardContainer from './ProductCardContainer'
-import Game from '../contracts/Game'
-import Button from './Button'
+import Game from '../../contracts/Game'
+import Button from '../Button'
 import { AiOutlineShoppingCart } from 'react-icons/all'
 
 const ProductCard: React.FC<Game> = (props: Game): JSX.Element => {

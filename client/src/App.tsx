@@ -8,9 +8,10 @@ import NotFound from './screens/NotFound'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useState } from 'react'
 import { AppContext } from './context/AppContext'
+import AppContextType from './contracts/AppContextType'
 
 const App: React.FC = (): JSX.Element => {
-  const initialAppContextValue = {
+  const initialAppContextValue: AppContextType = {
     data: {
       games: [
         {
@@ -78,9 +79,14 @@ const App: React.FC = (): JSX.Element => {
         },
       ],
     },
+    state: {
+      filters: false,
+    },
   }
 
-  const [appContextValue, setAppContextValue] = useState(initialAppContextValue)
+  const [appContextValue, setAppContextValue] = useState<AppContextType>(
+    initialAppContextValue
+  )
 
   return (
     <>

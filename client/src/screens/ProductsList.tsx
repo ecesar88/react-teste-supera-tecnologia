@@ -16,6 +16,7 @@ const ProductsList: React.FC = (): JSX.Element => {
           display: 'flex',
           gap: '25px',
           flexWrap: 'wrap',
+          justifyContent: 'center'
         }}
       >
         {games?.length ? (

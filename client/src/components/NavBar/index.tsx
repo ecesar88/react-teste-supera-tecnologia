@@ -1,26 +1,30 @@
 import React, { useContext, useState } from 'react'
-import Button from '../components/Button'
+import Button from '../Button'
 import {
   AiOutlineShoppingCart,
   FiSearch,
   ImHome,
   AiOutlineClear,
+  HiFilter,
+  BiFilterAlt,
 } from 'react-icons/all'
 import NavBarContainer from './NavBarContainer'
 import { CSSProperties } from 'styled-components'
-import Input from './Input'
-import NavBarProps from '../contracts/NavBarProps'
+import Input from '../Input'
+import NavBarProps from '../../contracts/NavBarProps'
 import { Link } from 'react-router-dom'
-import { AppContext } from '../context/AppContext'
-import Game from '../contracts/Game'
+import { AppContext } from '../../context/AppContext'
+import Game from '../../contracts/Game'
+import AppContextType from '../../contracts/AppContextType'
 
 const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
   const { homeIcon } = props
 
-  const { appContextValue, setAppContextValue } = useContext(AppContext)
+  const { appContextValue, setAppContextValue } =
+    useContext<AppContextType>(AppContext)
 
   const [search, setSearch] = useState('')
-  const [games] = useState(appContextValue.data.games)
+  const [games] = useState(appContextValue)
   const [searchedAtLeastOnce, setSearchedAtLeastOnce] = useState(false)
 
   const handleButtonSearchOnClick = () => {
@@ -30,25 +34,27 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
     }
 
     if (searchedAtLeastOnce) {
-      setAppContextValue({
+      setAppContextValue?.((prev: React.ComponentState) => ({
+        ...prev,
         data: {
           games: games,
         },
-      })
+      }))
     }
 
-    const searchResults = games.filter((game: Game) => {
+    const searchResults = games?.filter((game: Game) => {
       const gameName = game.name.toUpperCase()
       const searchString = search.toUpperCase()
 
       return gameName.includes(searchString)
     })
 
-    setAppContextValue({
+    setAppContextValue?.((prev: React.ComponentState) => ({
+      ...prev,
       data: {
         games: searchResults,
       },
-    })
+    }))
 
     setSearchedAtLeastOnce(true)
   }
@@ -57,11 +63,21 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
     setSearch('')
 
     setSearchedAtLeastOnce(false)
-    setAppContextValue({
+    setAppContextValue?.((prev: React.ComponentState) => ({
+      ...prev,
       data: {
         games: games,
       },
-    })
+    }))
+  }
+
+  const handleButtonToggleFiltersOnClick = () => {
+    setAppContextValue?.((prev: React.ComponentState) => ({
+      ...prev,
+      state: {
+        filters: !prev,
+      },
+    }))
   }
 
   const styles: { [key: string]: CSSProperties } = {
@@ -142,6 +158,14 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
             onClick={handleButtonClearSearchOnClick}
           >
             <AiOutlineClear />
+          </Button>
+
+          <Button
+            style={styles.width100}
+            title="Filtros"
+            onClick={handleButtonToggleFiltersOnClick}
+          >
+            {appContextValue?.state?.filters ? <HiFilter /> : <BiFilterAlt />}
           </Button>
         </div>
       </div>

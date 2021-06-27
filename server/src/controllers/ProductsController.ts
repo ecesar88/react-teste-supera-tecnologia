@@ -3,41 +3,6 @@ import createDatabaseConnection from '../database/config'
 
 const db = createDatabaseConnection()
 
-const createTable: RequestType = async (req, res) => {
-  const databaseName = req.body.databaseName
-  const tableName = req.body.tableName
-
-  // Check if table and database exists, if not create them
-  db.query(
-    `
-    SELECT COUNT(*)
-    FROM information_schema.tables 
-    WHERE table_schema = ?
-    AND table_name = ?;
-    `,
-    [databaseName, tableName],
-    (error, result) => {
-      if (error) {
-        res.status(500).send({
-          status: false,
-          data: {},
-          error: {
-            message: error,
-          },
-        })
-
-        return
-      }
-
-      res.status(200).send({
-        status: true,
-        data: {},
-        error: {},
-      })
-    }
-  )
-}
-
 const getProduct: RequestType = async (_req, res) => {
   db.query('SELECT * FROM PRODUCTS', (error, results) => {
     if (error) {
@@ -194,4 +159,4 @@ const deleteProduct: RequestType = async (req, res) => {
   })
 }
 
-export { getProduct, createProduct, updateProduct, deleteProduct, createTable }
+export { getProduct, createProduct, updateProduct, deleteProduct }

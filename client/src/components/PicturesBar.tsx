@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components'
-import backgroundImage from '../assets/cover/cover.png'
+import backgroundImage from 'public/assets/cover/cover.png'
 
 const animation = keyframes`
 0% {
@@ -7,7 +7,7 @@ const animation = keyframes`
 }
 
 50% {
-    background-position: 50%
+    background-position: 100%
 }
 
 100% {
@@ -22,7 +22,7 @@ const PicturesBar = styled.div`
   background-image: url(${backgroundImage});
   background-color: #000000;
   background-size: cover;
-  animation: ${animation} 20s infinite;
+  animation: ${animation} 540s infinite;
   font-size: 40px;
   color: white;
   font-weight: bold;

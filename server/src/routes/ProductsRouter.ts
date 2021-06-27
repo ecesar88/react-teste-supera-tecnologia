@@ -4,7 +4,6 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  createTable,
 } from '../controllers/ProductsController'
 
 const router = express.Router()

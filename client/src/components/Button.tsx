@@ -2,15 +2,16 @@ import styled from 'styled-components'
 
 interface ButtonProps {
   backgroundColor?: string
+  color?: string
 }
 
 const Button = styled.button`
   display: inline-block;
   background-color: ${(props: ButtonProps) =>
-    props.backgroundColor ? props.backgroundColor : '#7b38d8'};
+    props.backgroundColor ? props.backgroundColor : '#d41f1f'};
   border-radius: 5px;
   border: 4px #cccccc;
-  color: #eeeeee;
+  color: ${(props: ButtonProps) => props.color ?? '#eeeeee'};
   text-align: center;
   font-size: 16px;
   padding: 5px;
@@ -23,11 +24,11 @@ const Button = styled.button`
   margin: 3px;
 
   &:hover {
-    background-color: black;
+    background-color: #9c0b0b;
   }
 
   &:active {
-    background-color: #ff0000;
+    background-color: #690808;
   }
 `
 

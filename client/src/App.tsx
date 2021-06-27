@@ -2,117 +2,45 @@ import './App.css'
 import NavBar from './components/NavBar'
 import PicturesBar from './components/PicturesBar'
 import Container from './components/Container'
-import Button from './components/Button'
-import { AiOutlineShoppingCart } from 'react-icons/all'
-import ProductCard from './components/ProductCard'
-import ProductCardProps from './contracts/ProductCardProps'
+import ProductsList from './screens/ProductsList'
+import Teapot from './screens/Teapot'
+import NotFound from './screens/NotFound'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { useState } from 'react'
+import { AppContext } from './context/AppContext'
 
-const App = (): JSX.Element => {
-  const basePath = '../assets/photos'
+const App: React.FC = (): JSX.Element => {
+  const initialAppContextValue = {
+    a: 'blabalbalbababba'
+  }
 
-  const games = [
-    {
-      id: 312,
-      name: 'Super Mario Odyssey',
-      price: 197.88,
-      score: 100,
-      image: `${basePath}/super-mario-odyssey.png`,
-    },
-    {
-      id: 201,
-      name: 'Call Of Duty Infinite Warfare',
-      price: 49.99,
-      score: 80,
-      image: `${basePath}/call-of-duty-infinite-warfare.png`,
-    },
-    {
-      id: 102,
-      name: 'The Witcher III Wild Hunt',
-      price: 119.5,
-      score: 250,
-      image: `${basePath}/the-witcher-iii-wild-hunt.png`,
-    },
-    {
-      id: 99,
-      name: 'Call Of Duty WWII',
-      price: 249.99,
-      score: 205,
-      image: `${basePath}/call-of-duty-wwii.png`,
-    },
-    {
-      id: 12,
-      name: 'Mortal Kombat XL',
-      price: 69.99,
-      score: 150,
-      image: `${basePath}mortal-kombat-xl.png`,
-    },
-    {
-      id: 74,
-      name: 'Shards of Darkness',
-      price: 71.94,
-      score: 400,
-      image: `${basePath}/shards-of-darkness.png`,
-    },
-    {
-      id: 31,
-      name: 'Terra Média: Sombras de Mordor',
-      price: 79.99,
-      score: 50,
-      image: `${basePath}/terra-media-sombras-de-mordor.png`,
-    },
-    {
-      id: 420,
-      name: 'FIFA 18',
-      price: 195.39,
-      score: 325,
-      image: `${basePath}/fifa-18.png`,
-    },
-    {
-      id: 501,
-      name: 'Horizon Zero Dawn',
-      price: 115.8,
-      score: 290,
-      image: `${basePath}horizon-zero-dawn.png`,
-    },
-  ]
+  const [appContextValue, setAppContextValue] = useState(initialAppContextValue)
 
   return (
     <>
-      <PicturesBar>
-        <div style={{ width: '100%' }}>
-          <h1>SHOW GAMES</h1>
-        </div>
-      </PicturesBar>
+      <AppContext.Provider
+        value={{ appContextValue, setAppContextValue } as any}
+      >
+        <Router>
+          <PicturesBar>
+            <div style={{ width: '100%' }}>
+              <h1>GAMES ECOMMERCE</h1>
+            </div>
+          </PicturesBar>
 
-      <Container>
-        <NavBar>
-          <Button>
-            <AiOutlineShoppingCart />
-          </Button>
-        </NavBar>
+          <Container>
+            <NavBar homeIcon />
 
-        <Container>
-          <div
-            style={{
-              display: 'flex',
-              gap: '25px',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-            }}
-          >
-            {games.map((game: ProductCardProps) => {
-              return (
-                <ProductCard
-                  id={game.id}
-                  name={game.name}
-                  price={game.price}
-                  score={game.score}
-                />
-              )
-            })}
-          </div>
-        </Container>
-      </Container>
+            <Container>
+              <Switch>
+                <Route path="/" component={ProductsList} exact />
+                <Route path="/teapot" component={Teapot} exact />
+                <Route component={NotFound} />
+              </Switch>
+            </Container>
+          </Container>
+        </Router>
+      </AppContext.Provider>
     </>
   )
 }

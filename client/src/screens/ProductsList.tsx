@@ -7,7 +7,7 @@ import Game from '../contracts/Game'
 const ProductsList: React.FC = (): JSX.Element => {
   const { appContextValue } = useContext(AppContext)
 
-  const games = appContextValue.data.games
+  const games = appContextValue?.data?.filteredGames
 
   return (
     <>

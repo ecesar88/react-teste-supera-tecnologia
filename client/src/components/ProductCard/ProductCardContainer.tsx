@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const ProductCardWrapper = styled.div`
+const ProductCardContainer = styled.div`
   background-color: #f0f0f0;
   width: 200px;
   border-radius: 8px;
@@ -10,6 +10,12 @@ const ProductCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(97%);
+    transition: 0.3s;
+  }
 `
 
-export default ProductCardWrapper
+export default ProductCardContainer

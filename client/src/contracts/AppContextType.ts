@@ -1,16 +1,15 @@
 import Game from './Game'
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 interface AppContextType {
   data?: {
+    filteredGames?: Game[]
     games?: Game[]
-    [key: string]: any
+    cart?: Game[]
   }
   state?: {
-    filters?: boolean,
+    filters?: boolean
     shipmentCost: number
   }
-  [key: string]: any
 }
 
 export default AppContextType

@@ -14,6 +14,6 @@ open up a terminal or a Command Prompt window and type in the following:
 
 And hit `Enter`
 
-After you've done that, we now need to start the application, to do that, you'll need to run
+After you've done that, we now need to start the application, to do that, you need to run
 
-`yarn start` - For the `client` (React App) and;
+`yarn start`

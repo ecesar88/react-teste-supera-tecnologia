@@ -5,7 +5,7 @@ import Container from './components/Container'
 import ProductsList from './screens/ProductsList'
 import Teapot from './screens/Teapot'
 import NotFound from './screens/NotFound'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import { useState } from 'react'
 import { AppContext } from './context/AppContext'
 import AppContextType from './contracts/AppContextType'
@@ -160,11 +160,15 @@ const App: React.FC = (): JSX.Element => {
     <>
       <AppContext.Provider value={{ appContextValue, setAppContextValue }}>
         <Router>
-          <PicturesBar>
-            <div style={{ width: '100%' }}>
-              <h1>GAMES ECOMMERCE</h1>
-            </div>
-          </PicturesBar>
+          <Link to="/teapot">
+            <PicturesBar id="gamesEcommerce">
+              <div style={{ width: '100%' }}>
+                <Link to="/">
+                  <h1 id="title">GAMES ECOMMERCE</h1>
+                </Link>
+              </div>
+            </PicturesBar>
+          </Link>
 
           <Container>
             <NavBar homeIcon />

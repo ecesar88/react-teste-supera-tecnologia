@@ -109,7 +109,7 @@ const CartFooter: React.FC = (): JSX.Element => {
           ) : (
             <>
               <h4 style={styles.shipment}>
-                Frete R$: `${String(shipmentCost) + ',00'}`
+                Frete R$ {String(shipmentCost) + ',00'}
               </h4>
             </>
           )}

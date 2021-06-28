@@ -16,7 +16,16 @@ const CartFooter: React.FC = (): JSX.Element => {
   const games = appContextValue?.data?.cart
 
   const calculateShipmentCost = () => {
-    const total = 10 * games?.length
+    let total: number
+
+    try {
+      total = 10 * (games?.length ?? 0)
+    } catch (err) {
+      throw new Error(
+        'Could not compute "games" length as it might be/is undefined'
+      )
+    }
+
     setShipmentCost(total)
   }
 
@@ -38,8 +47,8 @@ const CartFooter: React.FC = (): JSX.Element => {
       return
     }
 
-    const result = games.reduce((total: number, currentItem: Game) => {
-      return total + currentItem.price
+    const result = games?.reduce((total: number, currentItem: Game) => {
+      return total + currentItem?.price
     }, 0)
 
     setTotal(result)

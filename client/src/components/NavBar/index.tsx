@@ -79,13 +79,12 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
   }
 
   const priceFilter = () => {
-    // eslint-disable-next-line
-    let sorted: { [key: string]: any }
+    let sorted: Game[] | undefined
 
-    if (filter.price === 'ascending') {
-      sorted = games.sort((a: Game, b: Game) => a.price - b.price)
+    if (filter?.price === 'ascending') {
+      sorted = games?.sort((a: Game, b: Game) => a.price - b.price)
     } else {
-      sorted = games.sort((a: Game, b: Game) => b.price - a.price)
+      sorted = games?.sort((a: Game, b: Game) => b.price - a.price)
     }
 
     setFilter((prev: React.ComponentState) => ({
@@ -103,11 +102,10 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
   }
 
   const alphabeticFilter = () => {
-    // eslint-disable-next-line
-    let sorted: { [key: string]: any }
+    let sorted: Game[] | undefined
 
     if (filter.score === 'ascending') {
-      sorted = games.sort((a: Game, b: Game) => {
+      sorted = games?.sort((a: Game, b: Game) => {
         if (a.name < b.name) {
           return -1
         }
@@ -117,7 +115,7 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
         return 0
       })
     } else {
-      sorted = games.sort((a: Game, b: Game) => {
+      sorted = games?.sort((a: Game, b: Game) => {
         if (a.name < b.name) {
           return 1
         }
@@ -144,12 +142,12 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
 
   const scoreFilter = () => {
     // eslint-disable-next-line
-    let sorted: { [key: string]: any }
+    let sorted: Game[] | undefined
 
     if (filter.score === 'ascending') {
-      sorted = games.sort((a: Game, b: Game) => a.score - b.score)
+      sorted = games?.sort((a: Game, b: Game) => a.score - b.score)
     } else {
-      sorted = games.sort((a: Game, b: Game) => b.score - a.score)
+      sorted = games?.sort((a: Game, b: Game) => b.score - a.score)
     }
 
     setFilter((prev: React.ComponentState) => ({
@@ -301,7 +299,7 @@ const NavBar: React.FC<NavBarProps> = (props): JSX.Element => {
       {location.pathname !== '/cart' && (
         <div>
           <Link to="/cart">
-            <CartButton style={styles.width100} cart={cart?.length}>
+            <CartButton style={styles.width100} cart={cart?.length as number}>
               <AiOutlineShoppingCart />
             </CartButton>
           </Link>

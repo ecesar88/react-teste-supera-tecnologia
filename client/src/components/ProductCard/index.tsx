@@ -44,7 +44,7 @@ const ProductCard: React.FC<Game> = (props: Game): JSX.Element => {
       },
     }))
 
-    const newLs = cart.filter((product: Game) => product?.id !== id)
+    const newLs = cart?.filter((product: Game) => product?.id !== id)
 
     localStorage.setItem(`${lsPath}/cart`, JSON.stringify(newLs))
   }

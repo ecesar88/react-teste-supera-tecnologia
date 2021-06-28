@@ -1,10 +1,10 @@
 import Game from './Game'
 
 interface AppContextType {
-  data?: {
+  data: {
     filteredGames?: Game[]
     games?: Game[]
-    cart?: Game[]
+    cart?: Game[] | undefined
   }
   state?: {
     filters?: boolean

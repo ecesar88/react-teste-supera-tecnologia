@@ -1,13 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import NoProductFound from '../components/NoProductFound'
 import ProductCard from '../components/ProductCard'
+import PromoBanner from '../components/PromoBanner'
+import { lsPath } from '../constants/LocalStoragePath'
 import { AppContext } from '../context/AppContext'
-import Game from '../contracts/Game'
 
 const ProductsList: React.FC = (): JSX.Element => {
-  const { appContextValue } = useContext(AppContext)
+  const { appContextValue, setAppContextValue } = useContext(AppContext)
 
   const games = appContextValue?.data?.filteredGames
+
+  useEffect(() => {
+    const data = localStorage.getItem(`${lsPath}/cart`)
+    const parsedData = JSON.parse(data as string)
+
+    if (data) {
+      setAppContextValue((prev: React.ComponentState) => ({
+        ...prev,
+        data: {
+          ...prev.data,
+          cart: [...parsedData],
+        },
+      }))
+    }
+  }, [])
 
   return (
     <>
@@ -16,11 +32,13 @@ const ProductsList: React.FC = (): JSX.Element => {
           display: 'flex',
           gap: '25px',
           flexWrap: 'wrap',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
+        <PromoBanner />
+
         {games?.length ? (
-          games.map((game: Game) => {
+          games.map((game) => {
             return (
               <ProductCard
                 key={game.id}

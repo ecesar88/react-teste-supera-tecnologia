@@ -4,24 +4,23 @@ import Game from '../../contracts/Game'
 import { Button } from '../Button'
 import { AiOutlineShoppingCart } from 'react-icons/all'
 import { AppContext } from '../../context/AppContext'
+import { lsPath } from '../../constants/LocalStoragePath'
 
 const ProductCard: React.FC<Game> = (props: Game): JSX.Element => {
   const { id, name, price, score, image } = props
 
   const basePath = 'assets/photos'
-
   const { appContextValue, setAppContextValue } = useContext(AppContext)
-
   const { cart } = appContextValue?.data
 
   const isOnCart = useMemo(
-    //eslint-disable-next-line
-    () => cart?.some((product: any) => product.id === id),
+    () => cart?.some((product: Game) => product.id === id),
     [cart]
   )
 
   const handleButtonAddToCartOnClick = () => {
     setAppContextValue((prev: React.ComponentState) => ({
+      ...prev,
       data: {
         ...prev.data,
         cart: [
@@ -32,17 +31,22 @@ const ProductCard: React.FC<Game> = (props: Game): JSX.Element => {
         ],
       },
     }))
+
+    localStorage.setItem(`${lsPath}/cart`, JSON.stringify(cart))
   }
 
   const handleButtonRemoveFromCartOnClick = () => {
     setAppContextValue((prev: React.ComponentState) => ({
+      ...prev,
       data: {
         ...prev.data,
-
-        //eslint-disable-next-line
-        cart: prev?.data?.cart?.filter((product: any) => product?.id !== id),
+        cart: cart?.filter((product: Game) => product?.id !== id),
       },
     }))
+
+    const newLs = cart.filter((product: Game) => product?.id !== id)
+
+    localStorage.setItem(`${lsPath}/cart`, JSON.stringify(newLs))
   }
 
   return (

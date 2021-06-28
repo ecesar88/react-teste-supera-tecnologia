@@ -6,6 +6,10 @@ interface AppContextType {
     games?: Game[]
     [key: string]: any
   }
+  state?: {
+    filters?: boolean,
+    shipmentCost: number
+  }
   [key: string]: any
 }
 

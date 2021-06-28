@@ -21,7 +21,7 @@ const PicturesBar = styled.div`
   background-image: url('assets/cover/cover.png');
   background-color: #000000;
   background-size: cover;
-  animation: ${animation} 540s infinite;
+  animation: ${animation} 160s infinite;
   font-size: 40px;
   color: white;
   font-weight: bold;
